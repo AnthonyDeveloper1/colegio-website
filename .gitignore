@@ -1,0 +1,35 @@
+# Archivo .gitignore - Excluye archivos que NO deben subirse al repositorio
+# Evita commitear archivos temporales, caches, configuración local y secretos
+
+# Python (cache compilado, archivos temporales)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# IDEs (configuraciones locales de editores)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker (archivos temporales y backups de compose)
+docker-compose.clean.yml
+
+# Environment (variables de entorno con credenciales - NUNCA commitear)
+.env
+
+# Node (dependencias npm pesadas - se reinstalan con npm install)
+node_modules/
+
+# Logs
+*.log
+
+# Databases (dumps locales opcionales)
+*.sql
+
+# Uploads (archivos subidos localmente)
+api/uploads/
+uploads/
+media/

@@ -1,0 +1,75 @@
+# Docker Compose - Orquestación de servicios
+# Levanta 3 contenedores: PostgreSQL (db), Flask API (api), Frontend (web)
+# Uso: docker compose up --build -d
+# Health checks activos: servicios esperan a que dependencias estén saludables
+
+services:
+  # Servicio de base de datos PostgreSQL
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: colegio_db  # Nombre de la base de datos
+      POSTGRES_USER: postgres  # Usuario de BD
+      POSTGRES_PASSWORD: root  # ⚠️ Cambiar en producción
+    volumes:
+      - db-data:/var/lib/postgresql/data  # Persistencia de datos
+    ports:
+      - "5432:5432"  # Puerto expuesto (host:container)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d colegio_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio API Flask (backend)
+  api:
+    build: ./api  # Construye desde ./api/Dockerfile
+    command: gunicorn --bind 0.0.0.0:5000 --workers 4 --timeout 120 --access-logfile - --error-logfile - --log-level info "app:create_app()"
+    environment:
+      FLASK_ENV: ${FLASK_ENV:-development}  # Leer de .env (default: development)
+      DATABASE_URL: "postgresql://postgres:root@db:5432/colegio_db"
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}  # Leer de .env (obligatorio)
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      UPLOAD_METHOD: ${UPLOAD_METHOD:-local}  # Método de upload (cloudinary o local)
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-delacruzantony32@gmail.com}  # Email para notificaciones
+      RESEND_API_KEY: ${RESEND_API_KEY}  # API Key de Resend
+    volumes:
+      - ./api:/app  # Montaje para hot-reload en desarrollo
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy  # Espera a que PostgreSQL esté healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Servicio Frontend (Next.js 14 con TypeScript)
+  web:
+    build: ./web  # Construye desde ./web/Dockerfile
+    environment:
+      # API URL para server-side (dentro del contenedor)
+      API_URL: "http://api:5000/api"
+      # API URL para client-side (navegador del usuario)
+      NEXT_PUBLIC_API_URL: "http://localhost:5000/api"
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app  # Montaje para hot-reload en desarrollo
+      - /app/node_modules  # Evita conflicto con node_modules local
+      - /app/.next  # Evita conflicto con build cache
+    command: npm run dev  # Next.js dev server con hot-reload
+    depends_on:
+      api:
+        condition: service_healthy  # Espera a que API esté healthy
+
+# Volúmenes persistentes
+volumes:
+  db-data: {}  # Almacena datos de PostgreSQL (persiste entre reinicios)
