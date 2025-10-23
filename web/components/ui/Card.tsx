@@ -6,9 +6,9 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+
 import { cn } from '@/lib/utils';
-import { cardHoverElegant, gridItem } from '@/lib/animations';
+// import { cardHoverElegant, gridItem } from '@/lib/animations';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'elegant-rojo' | 'elegant-azul' | 'elegant-amarillo' | 'cloud' | 'blob' | 'hover' | 'clickable';
@@ -39,29 +39,21 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     if (animated) {
+      // Framer Motion removed: fallback to regular div with CSS transitions
       return (
-        <motion.div
+        <div
           ref={ref}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={gridItem}
-          whileHover={hover ? { 
-            y: -12, 
-            scale: 1.02,
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
-            transition: { duration: 0.3, ease: 'easeOut' } 
-          } : {}}
           className={cn(
             'transition-all duration-300',
+            hover ? 'hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl' : '',
             variants[variant],
             paddings[padding],
             className
           )}
-          {...(props as any)}
+          {...props}
         >
           {children}
-        </motion.div>
+        </div>
       );
     }
 

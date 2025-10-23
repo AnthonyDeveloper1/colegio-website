@@ -280,7 +280,7 @@ export default function NewPublicationPage() {
         category_id: Number(categoryId),
       };
 
-      console.log('Creando publicación:', publicationData);
+  // Creando publicación (log eliminado para producción)
 
       await publicationsService.create(publicationData);
 

@@ -1,9 +1,8 @@
 /**
  * Blog Card Component
  * Card de publicación para mostrar en listas
+ * Optimizado con transiciones CSS ligeras
  */
-
-'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -28,7 +27,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, featured = false }) =>
             <img
               src={getImageUrl(post.image_url)}
               alt={post.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-75"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white text-6xl font-bold">
@@ -63,7 +62,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, featured = false }) =>
           </div>
 
           {/* Title */}
-          <h3 className={`font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors ${featured ? 'text-2xl' : 'text-xl'}`}>
+          <h3 className={`font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-75 ${featured ? 'text-2xl' : 'text-xl'}`}>
             {post.title}
           </h3>
 
@@ -75,9 +74,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, featured = false }) =>
           )}
 
           {/* Read More */}
-          <div className="flex items-center gap-2 text-blue-600 font-medium group-hover:gap-3 transition-all">
+          <div className="flex items-center gap-2 text-blue-600 font-medium">
             Leer más
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-75" />
           </div>
         </div>
       </Card>

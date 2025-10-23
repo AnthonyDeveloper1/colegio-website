@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+
 import { ArrowRight, Sparkles, GraduationCap, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui';
@@ -15,11 +15,7 @@ import { ROUTES, INSTITUTION } from '@/lib/constants';
 import { Stats } from './Stats';
 import { publicationsService } from '@/services';
 import type { Publication } from '@/types';
-import { 
-  heroTextAnimation, 
-  staggerContainer, 
-  staggerItem,
-} from '@/lib/animations';
+
 
 export const HeroSection: React.FC = () => {
   const [publications, setPublications] = useState<Publication[]>([]);
@@ -39,99 +35,43 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative bg-gradient-to-br from-[#E63946] via-[#F4A261] to-[#457B9D] text-white overflow-hidden min-h-[90vh]">
       {/* Blobs Decorativos Flotantes */}
-      <motion.div 
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
-        transition={{
-          duration: 15,
-          delay: 0,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="decorative-blob absolute top-20 left-10 w-72 h-72 bg-white"
-        style={{ zIndex: 0 }}
-      />
-      <motion.div 
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
-        transition={{
-          duration: 15,
-          delay: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="decorative-blob absolute bottom-32 right-20 w-96 h-96 bg-[#1D3557]"
-        style={{ zIndex: 0 }}
-      />
-      <motion.div 
-        animate={{
-          x: [0, 30, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.1, 0.9, 1],
-        }}
-        transition={{
-          duration: 15,
-          delay: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        className="decorative-blob absolute top-1/2 left-1/3 w-64 h-64 bg-[#FFE5E8]"
-        style={{ zIndex: 0 }}
-      />
+      <div className="decorative-blob absolute top-20 left-10 w-72 h-72 bg-white animate-blob1" style={{ zIndex: 0 }} />
+      <div className="decorative-blob absolute bottom-32 right-20 w-96 h-96 bg-[#1D3557] animate-blob2" style={{ zIndex: 0 }} />
+      <div className="decorative-blob absolute top-1/2 left-1/3 w-64 h-64 bg-[#FFE5E8] animate-blob3" style={{ zIndex: 0 }} />
 
       <div className="relative container mx-auto px-4 py-20 md:py-28 z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Content */}
-          <motion.div 
-            className="text-center lg:text-left"
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer(0.15, 0.2)}
-          >
+          <div className="text-center lg:text-left">
             {/* Badge */}
-            <motion.div variants={staggerItem} className="inline-block mb-6">
+            <div className="inline-block mb-6 transition-all duration-500">
               <span className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-sm font-semibold shadow-lg">
                 <Sparkles className="w-5 h-5" />
                 {INSTITUTION.shortName} - Educación de Excelencia
               </span>
-            </motion.div>
+            </div>
 
             {/* Title */}
-            <motion.h1
-              variants={heroTextAnimation}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-            >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight transition-all duration-500">
               {INSTITUTION.name}
-            </motion.h1>
+            </h1>
 
-            <motion.div variants={staggerItem}>
+            <div className="transition-all duration-500">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
                 <span className="bg-gradient-to-r from-yellow-200 via-white to-blue-200 bg-clip-text text-transparent">
                   Formando el Futuro con Excelencia
                 </span>
               </h2>
-            </motion.div>
+            </div>
 
             {/* Description */}
-            <motion.p
-              variants={staggerItem}
-              className="text-xl md:text-2xl text-white/95 mb-10 max-w-2xl lg:max-w-none font-light"
-            >
+            <p className="text-xl md:text-2xl text-white/95 mb-10 max-w-2xl lg:max-w-none font-light transition-all duration-500">
               Institución educativa comprometida con la excelencia académica,
               el desarrollo integral y los valores que transforman vidas.
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={staggerItem}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start transition-all duration-500">
               <Link href={ROUTES.ABOUT}>
                 <Button variant="primary" size="lg" leftIcon={<GraduationCap className="w-5 h-5" />}>
                   Conócenos
@@ -142,16 +82,11 @@ export const HeroSection: React.FC = () => {
                   Contáctanos
                 </Button>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right Column - Cards Grandes Flotantes tipo Hola */}
-          <motion.div
-            className="relative h-[700px] hidden lg:block"
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer(0.2, 0.3)}
-          >
+          <div className="relative h-[700px] hidden lg:block">
             {publications.length > 0 ? (
               <div className="relative w-full h-full perspective-1000">
                 {publications.slice(0, 3).map((pub, index) => {
@@ -187,50 +122,24 @@ export const HeroSection: React.FC = () => {
                   const config = configs[index];
 
                   return (
-                    <motion.div
+                    <div
                       key={pub.id}
-                      className="absolute"
+                      className="absolute transition-all duration-700 hover:z-50 hover:scale-110 hover:rotate-0"
                       style={{ 
                         top: config.top,
                         bottom: config.bottom,
                         left: config.left, 
                         right: config.right,
                         zIndex: config.zIndex,
-                      }}
-                      initial={{ opacity: 0, scale: 0.3, y: 150, rotate: 0 }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: config.scale,
-                        y: 0,
-                        rotate: config.rotation,
-                      }}
-                      transition={{ 
-                        duration: 1.2,
-                        delay: config.delay,
-                        type: 'spring',
-                        bounce: 0.5
-                      }}
-                      whileHover={{ 
-                        scale: config.scale + 0.08, 
-                        rotate: 0,
-                        zIndex: 100,
-                        transition: { duration: 0.4, type: 'spring', bounce: 0.3 }
+                        transform: `scale(${config.scale}) rotate(${config.rotation}deg)`
                       }}
                     >
                       <Link href={`${ROUTES.BLOG}/${pub.slug}`}>
-                        <motion.div 
-                          className={`w-[550px] h-[200px] overflow-hidden cursor-pointer relative group shadow-2xl bg-gradient-to-br ${config.gradient}`}
+                        <div 
+                          className={`w-[550px] h-[200px] overflow-hidden cursor-pointer relative group shadow-2xl bg-gradient-to-br ${config.gradient} animate-float`}
                           style={{
                             borderRadius: '20px',
                             clipPath: 'path("M 0,40 Q 138,10 275,40 T 550,40 L 550,160 Q 413,190 275,160 T 0,160 Z")',
-                          }}
-                          animate={{
-                            y: [0, -20, 0],
-                          }}
-                          transition={{
-                            duration: 5 + index * 0.5,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
                           }}
                         >
                           {/* Image Background */}
@@ -250,42 +159,28 @@ export const HeroSection: React.FC = () => {
                             {/* Left: Title & Category */}
                             <div className="flex-1">
                               {/* Category Badge */}
-                              <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: config.delay + 0.4 }}
-                                className="mb-3"
-                              >
+                              <div className="mb-3 transition-all duration-500">
                                 <span className="inline-block px-4 py-1.5 bg-white rounded-full text-xs font-bold text-gray-900 shadow-lg">
                                   {pub.category?.name}
                                 </span>
-                              </motion.div>
+                              </div>
 
                               {/* Title */}
-                              <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: config.delay + 0.6 }}
-                              >
+                              <div className="transition-all duration-500">
                                 <h3 className="text-white font-bold text-2xl leading-tight line-clamp-2 drop-shadow-[0_6px_16px_rgba(0,0,0,1)]">
                                   {pub.title}
                                 </h3>
-                              </motion.div>
+                              </div>
                             </div>
 
                             {/* Right: Read More Button */}
-                            <motion.div
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: config.delay + 0.8 }}
-                              className="flex-shrink-0"
-                            >
+                            <div className="flex-shrink-0 transition-all duration-500">
                               <div className="flex items-center gap-2 text-white/90 text-sm font-medium bg-white/10 backdrop-blur-sm px-5 py-3 rounded-full group-hover:bg-white/20 transition-all">
                                 <BookOpen className="w-4 h-4" />
                                 <span className="hidden xl:inline">Leer más</span>
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
                               </div>
-                            </motion.div>
+                            </div>
                           </div>
 
                           {/* Shine Effect al Hover */}
@@ -293,9 +188,9 @@ export const HeroSection: React.FC = () => {
                           
                           {/* Border Glow */}
                           <div className="absolute inset-0 rounded-[2rem] ring-2 ring-white/0 group-hover:ring-white/30 transition-all duration-300" />
-                        </motion.div>
+                        </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -311,45 +206,31 @@ export const HeroSection: React.FC = () => {
                   const config = configs[index];
 
                   return (
-                    <motion.div
+                    <div
                       key={index}
-                      className="absolute w-[550px] h-[200px] bg-white/10 backdrop-blur-xl shadow-2xl"
+                      className="absolute w-[550px] h-[200px] bg-white/10 backdrop-blur-xl shadow-2xl animate-float"
                       style={{ 
                         top: config.top,
                         bottom: config.bottom,
                         left: config.left,
                         right: config.right,
-                        rotate: `${config.rotation}deg`,
+                        transform: `rotate(${config.rotation}deg) scale(${config.scale})`,
                         zIndex: config.zIndex,
                         borderRadius: '20px',
                         clipPath: 'path("M 0,40 Q 138,10 275,40 T 550,40 L 550,160 Q 413,190 275,160 T 0,160 Z")',
-                      }}
-                      animate={{
-                        y: [0, -20, 0],
-                        opacity: [0.3, 0.5, 0.3],
-                      }}
-                      transition={{
-                        duration: 5 + index * 0.5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
                       }}
                     />
                   );
                 })}
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="mt-24 md:mt-32"
-        >
+        <div className="mt-24 md:mt-32 transition-all duration-700">
           <Stats />
-        </motion.div>
+        </div>
       </div>
 
       {/* Wave Divider Elegante */}

@@ -7,10 +7,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, Heart } from 'lucide-react';
 import { ROUTES, INSTITUTION } from '@/lib/constants';
 import { Logo } from '@/components/ui';
+// Framer Motion removed
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -49,11 +50,8 @@ export const Footer: React.FC = () => {
       <div className="relative container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Column 1: About */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <div
+            className="transition-all duration-500 opacity-100 translate-y-0"
           >
             <div className="mb-6">
               <Logo variant="white" size="md" showText={true} linkToHome={false} />
@@ -66,29 +64,24 @@ export const Footer: React.FC = () => {
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
-                  <motion.a
+                  <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-12 h-12 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center ${social.color} transition-all duration-300`}
+                    className={`w-12 h-12 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center ${social.color} transition-transform duration-300 hover:scale-110 hover:rotate-2 active:scale-95`}
                     aria-label={social.label}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.95 }}
                   >
                     <Icon className="w-5 h-5" />
-                  </motion.a>
+                  </a>
                 );
               })}
             </div>
-          </motion.div>
+          </div>
 
           {/* Column 2: Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <div
+            className="transition-all duration-500 opacity-100 translate-y-0"
           >
             <h3 className="font-bold text-white mb-6 text-lg">Navegación</h3>
             <ul className="space-y-3">
@@ -104,14 +97,11 @@ export const Footer: React.FC = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Column 3: Resources */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <div
+            className="transition-all duration-500 opacity-100 translate-y-0"
           >
             <h3 className="font-bold text-white mb-6 text-lg">Recursos</h3>
             <ul className="space-y-3">
@@ -127,14 +117,11 @@ export const Footer: React.FC = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Column 4: Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div
+            className="transition-all duration-500 opacity-100 translate-y-0"
           >
             <h3 className="font-bold text-white mb-6 text-lg">Contacto</h3>
             <ul className="space-y-4">
@@ -158,7 +145,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
-          </motion.div>
+          </div>
         </div>
       </div>
 

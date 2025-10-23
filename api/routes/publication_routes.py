@@ -21,6 +21,7 @@ def list_publications():
     page = int(request.args.get("page", 1))
     per_page = int(request.args.get("per_page", 10))
     q = request.args.get("q")
+    category_id = request.args.get("category_id")
     status = request.args.get("status")  # Nuevo: filtro por status
     
     # Solo mostrar publicadas por defecto (público)
@@ -33,10 +34,17 @@ def list_publications():
     else:
         # Por defecto: solo publicadas (para público)
         query = query.filter(Publication.status == "Publicado")
-    
+
     if q:
         query = query.filter(Publication.title.ilike(f"%{q}%"))
-    
+
+    if category_id:
+        try:
+            category_id_int = int(category_id)
+            query = query.filter(Publication.category_id == category_id_int)
+        except ValueError:
+            pass  # Ignore invalid category_id
+
     # Ordenar por fecha de publicación descendente
     query = query.order_by(Publication.published_at.desc(), Publication.created_at.desc())
 

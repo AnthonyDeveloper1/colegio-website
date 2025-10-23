@@ -1,3 +1,41 @@
+/* Animación ultra ligera para ScrollReveal */
+.scrollreveal-fadein {
+  opacity: 0;
+  animation: scrollRevealFadeIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes scrollRevealFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Animaciones ultra ligeras para WaveCard */
+.wavecard-float {
+  animation: wavecardFloat 4.5s ease-in-out infinite alternate;
+}
+@keyframes wavecardFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+
+.wavecard-fadein {
+  opacity: 0;
+  animation: wavecardFadeIn 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes wavecardFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Animación ultra ligera para el botón de login */
+.animate-login-glow {
+  animation: loginGlow 2.5s cubic-bezier(0.4,0,0.2,1) infinite alternate;
+}
+@keyframes loginGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(230,57,70,0.10), 0 2px 8px 0 rgba(230,57,70,0.10);
+  }
+  100% {
+    box-shadow: 0 0 0 6px rgba(230,57,70,0.13), 0 2px 16px 0 rgba(230,57,70,0.13);
+  }
+}
 @import "tailwindcss";
 
 /* ============================================
@@ -93,6 +131,82 @@ body {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* ============================================
+   ANIMACIONES CSS OPTIMIZADAS
+   ============================================ */
+
+/* Fade In - Simple y ligero */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide Up - Para entradas */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse Suave - Para botones */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   OPTIMIZACIONES DE RENDIMIENTO
+   ============================================ */
+
+/* Hardware Acceleration - Mejora rendimiento de animaciones */
+.transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth Transitions Ultra-Rápidas */
+.transition-ultra-fast {
+  transition: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-instant {
+  transition: all 50ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active states optimizados */
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   RESPETAR PREFERENCIAS DE USUARIO
+   ============================================ */
+
+/* Deshabilitar animaciones para usuarios que prefieren movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Selection */

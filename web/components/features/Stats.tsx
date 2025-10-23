@@ -6,7 +6,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+
 import { Users, Award, BookOpen, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -73,14 +73,9 @@ export const Stats: React.FC<StatsProps> = ({ className }) => {
         const colors = colorClasses[stat.color];
         
         return (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:scale-105"
           >
             {/* Icon */}
             <div className={cn('inline-flex p-3 rounded-xl mb-4', colors.iconBg)}>
@@ -101,7 +96,7 @@ export const Stats: React.FC<StatsProps> = ({ className }) => {
 
             {/* Decorative Bar */}
             <div className={cn('h-1 w-12 mt-3 rounded-full', colors.bg)} />
-          </motion.div>
+          </div>
         );
       })}
     </div>

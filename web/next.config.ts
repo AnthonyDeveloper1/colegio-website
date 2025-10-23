@@ -39,6 +39,30 @@ const nextConfig: NextConfig = {
   
   // Compresión
   compress: true,
+  
+  // Optimizar bundle y chunks
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@/components'], // Tree-shaking agresivo
+  },
+  
+  // Headers de performance
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          }
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

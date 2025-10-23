@@ -14,10 +14,10 @@ interface LogoProps {
 }
 
 const sizeMap = {
-  sm: { width: 32, height: 32, text: 'text-sm' },
-  md: { width: 48, height: 48, text: 'text-base' },
-  lg: { width: 64, height: 64, text: 'text-lg' },
-  xl: { width: 80, height: 80, text: 'text-xl' },
+  sm: { width: 64, height: 64, text: 'text-sm' },
+  md: { width: 96, height: 96, text: 'text-base' },
+  lg: { width: 128, height: 128, text: 'text-lg' },
+  xl: { width: 160, height: 160, text: 'text-xl' },
 };
 
 export function Logo({
@@ -29,10 +29,8 @@ export function Logo({
 }: LogoProps) {
   const dimensions = sizeMap[size];
   
-  const logoSrc = 
-    variant === 'white' ? '/logo-white.svg' :
-    variant === 'icon' ? '/logo-icon.svg' :
-    '/logo.svg';
+  // Usar siempre logo.png personalizado
+  const logoSrc = '/logo.png';
 
   const logoElement = (
     <div className={`flex items-center gap-3 ${className}`}>
