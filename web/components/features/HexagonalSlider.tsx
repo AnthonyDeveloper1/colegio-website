@@ -165,6 +165,7 @@ export const HexagonalSlider: React.FC<HexagonalSliderProps> = ({
                 : 'w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400'
             )}
             onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const swiper = document.querySelector('.swiper') as any;
               if (swiper?.swiper) {
                 swiper.swiper.slideTo(index);

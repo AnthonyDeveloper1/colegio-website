@@ -5,7 +5,7 @@
 
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import Link from 'next/link';
 // Animación CSS ultra ligera, sin Framer Motion
 import { ArrowRight, BookOpen } from 'lucide-react';
