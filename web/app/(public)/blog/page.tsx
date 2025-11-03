@@ -5,7 +5,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Search, Filter, Calendar, User, ArrowRight, Tag } from 'lucide-react';
 import { Container } from '@/components/layout';
@@ -17,7 +17,7 @@ import type { Publication, Category } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function BlogPage() {
+function BlogPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -324,5 +324,13 @@ export default function BlogPage() {
         )}
       </Container>
     </div>
+  );
+}
+
+export default function BlogPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Spinner size="lg" /></div>}>
+      <BlogPageContent />
+    </Suspense>
   );
 }
